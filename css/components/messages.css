@@ -1,0 +1,14 @@
+.form-message {
+    min-height: 24px;
+    margin-top: var(--space-sm);
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.form-message.success {
+    color: var(--color-success);
+}
+
+.form-message.error {
+    color: var(--color-error);
+}
