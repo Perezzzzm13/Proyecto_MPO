@@ -4,9 +4,9 @@ const registerMessage = document.getElementById("registerMessage");
 registerForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const username = document.getElementById("registerUsername").value.trim();
-    const name = document.getElementById("registerName").value.trim();
-    const surname = document.getElementById("registerSurname").value.trim();
+    const nombreUsuario = document.getElementById("registerUsername").value.trim();
+    const nombre = document.getElementById("registerName").value.trim();
+    const apellidos = document.getElementById("registerSurname").value.trim();
     const email = document.getElementById("registerEmail").value.trim();
     const password = document.getElementById("registerPassword").value;
     const confirmPassword = document.getElementById("registerConfirmPassword").value;
@@ -14,8 +14,8 @@ registerForm.addEventListener("submit", async function (event) {
     clearMessage(registerMessage);
 
     if (
-        username === "" ||
-        name === "" ||
+        nombreUsuario === "" ||
+        nombre === "" ||
         email === "" ||
         password === "" ||
         confirmPassword === ""
@@ -40,14 +40,15 @@ registerForm.addEventListener("submit", async function (event) {
     }
 
     const userData = {
-        nombre_usuario: username,
-        nombre: name,
-        apellidos: surname,
+        nombre_usuario: nombreUsuario,
+        nombre: nombre,
+        apellidos: apellidos,
         email: email,
         password: password
     };
 
     try {
+        
         const response = await fetch("../../backend/auth/register.php", {
             method: "POST",
             headers: {
@@ -55,6 +56,7 @@ registerForm.addEventListener("submit", async function (event) {
             },
             body: JSON.stringify(userData)
         });
+        console.log(userData);
 
         const data = await response.json();
 

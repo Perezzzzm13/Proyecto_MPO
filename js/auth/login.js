@@ -25,6 +25,7 @@ loginForm.addEventListener("submit", async function (event) {
     };
 
     try {
+        console.log(loginData);
         const response = await fetch("../../backend/auth/login.php", {
             method: "POST",
             headers: {
@@ -32,6 +33,8 @@ loginForm.addEventListener("submit", async function (event) {
             },
             body: JSON.stringify(loginData)
         });
+        
+        
 
         const data = await response.json();
 
