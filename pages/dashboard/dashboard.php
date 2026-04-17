@@ -21,11 +21,15 @@ if (!isset($_SESSION['id_usuario'])) {
     <link rel="stylesheet" href="../../css/pages/dashboard.css">
 </head>
 <body>
-    <h1>Bienvenido a GymTracker</h1>
+<h1>Bienvenido a GymTracker</h1>
 
-    <p>Hola, <?php echo $_SESSION['nombre']; ?></p>
-    <p>Usuario: <?php echo $_SESSION['nombre_usuario']; ?></p>
+<p>Hola, <?php echo $_SESSION['nombre']; ?></p>
 
-    <a href="../../backend/auth/logout.php">Cerrar sesión</a>
+<div>
+    <a href="../routines/routines.html">Mis rutinas</a>
+    <a href="../sessions/sessions.html">Mis sesiones</a>
+</div>
+
+<a href="../../backend/auth/logout.php">Cerrar sesión</a>
 </body>
 </html>
