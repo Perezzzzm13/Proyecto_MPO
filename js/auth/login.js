@@ -42,7 +42,7 @@ loginForm.addEventListener("submit", async function (event) {
             showMessage(loginMessage, data.message, "success");
 
             setTimeout(function () {
-                window.location.href = "../dashboard/dashboard.html";
+                window.location.href = "../dashboard/dashboard.php";
             }, 1000);
         } else {
             showMessage(loginMessage, data.message, "error");
