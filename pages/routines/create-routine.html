@@ -18,21 +18,21 @@
         <h1>Crear rutina</h1>
 
         <form id="form-crear-rutina">
-            <div>
+            <div class="campo-formulario">
                 <label for="nombre">Nombre de la rutina</label>
                 <input type="text" id="nombre" name="nombre" maxlength="50" required>
             </div>
-
-            <div>
+        
+            <div class="campo-formulario">
                 <label for="descripcion">Descripción</label>
-                <textarea id="descripcion" name="descripcion" maxlength="255"></textarea>
+                <textarea id="descripcion" name="descripcion" maxlength="255" rows="4"></textarea>
             </div>
-
+        
             <div id="mensaje-rutina"></div>
-
-            <div>
-                <button type="submit">Guardar rutina</button>
-                <a href="routines.html">Volver</a>
+        
+            <div class="acciones-formulario">
+                <button type="submit" class="btn btn-primary">Guardar rutina</button>
+                <a href="routines.html" class="btn">Volver</a>
             </div>
         </form>
     </main>

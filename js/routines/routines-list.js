@@ -1,5 +1,5 @@
 
-document.addEventListener('DOMContentLoaded', iniciarPaginaRutinas());
+document.addEventListener('DOMContentLoaded', iniciarPaginaRutinas);
 
 function iniciarPaginaRutinas() {
     const contenedorMensaje = document.getElementById('mensaje-rutinas');
@@ -8,7 +8,7 @@ function iniciarPaginaRutinas() {
     cargarRutinas(contenedorMensaje, contenedorRutinas);
 }
 
-async function cargarRutinas() {
+async function cargarRutinas(contenedorMensaje, contenedorRutinas) {
     
     //Limpiar mensajes para que no queden restos al recargar.
     contenedorMensaje.textContent = '';
@@ -16,7 +16,7 @@ async function cargarRutinas() {
 
     try {
         const respuesta = await fetch('../../backend/routines/list.php');
-        const data = await respuesta.json;
+        const data = await respuesta.json();
 
         if (!data.success) {
             contenedorMensaje.textContent = data.message;
@@ -42,7 +42,7 @@ function pintarRutinas(rutinas, contenedorRutinas) {
             <article class="card-rutina">
                 <h2>${rutina.nombre}</h2>
                 <p>${rutina.descripcion ? rutina.descripcion : 'Sin descripción'}</p>
-                <button data-id="${rutina.id_rutina}">Ver rutina</button>
+                <a href="routine-detail.html?id=${rutina.id_rutina}" class="btn">Ver rutina</a>
             </article>
         `;
     }

@@ -1,0 +1,27 @@
+main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+}
+
+.acciones-rutinas {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    /* Por si acaso se visualiza en móvil*/
+    flex-wrap: wrap; 
+}
+
+#mensaje-rutinas {
+    margin-bottom: 1.5rem;
+}
+
+#lista-rutinas {
+    display: grid;
+    gap: 1.5rem;
+}
