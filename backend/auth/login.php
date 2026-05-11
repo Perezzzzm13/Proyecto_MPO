@@ -72,3 +72,5 @@ try {
         'message' => 'Ha ocurrido un error durante el login'
     ]);
 }
+
+?>

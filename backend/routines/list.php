@@ -21,7 +21,7 @@ try {
             WHERE id_usuario = :id_usuario
             ORDER BY id_rutina DESC";
 
-    $stmt = $pdo->prepare($sql);
+    $stmt = $conexion->prepare($sql);
     $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
     $stmt->execute();
 

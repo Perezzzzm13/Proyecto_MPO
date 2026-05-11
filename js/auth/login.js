@@ -6,7 +6,8 @@ loginForm.addEventListener("submit", async function (event) {
 
     const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value;
-
+    
+    
     clearMessage(loginMessage);
 
     if (email === "" || password === "") {

@@ -30,7 +30,7 @@ try {
                   WHERE id_rutina = :id_rutina
                     AND id_usuario = :id_usuario";
 
-    $stmtRutina = $pdo->prepare($sqlRutina);
+    $stmtRutina = $conexion->prepare($sqlRutina);
     $stmtRutina->bindParam(':id_rutina', $id_rutina, PDO::PARAM_INT);
     $stmtRutina->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
     $stmtRutina->execute();
@@ -57,7 +57,7 @@ try {
                       WHERE re.id_rutina = :id_rutina
                       ORDER BY re.orden ASC";
 
-    $stmtEjercicios = $pdo->prepare($sqlEjercicios);
+    $stmtEjercicios = $conexion->prepare($sqlEjercicios);
     $stmtEjercicios->bindParam(':id_rutina', $id_rutina, PDO::PARAM_INT);
     $stmtEjercicios->execute();
 

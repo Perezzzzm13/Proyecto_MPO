@@ -48,7 +48,7 @@ try {
     $sql = "INSERT INTO rutinas (nombre, descripcion, id_usuario)
             VALUES (:nombre, :descripcion, :id_usuario)";
 
-    $stmt = $pdo->prepare($sql);
+    $stmt = $conexion->prepare($sql);
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
     $stmt->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
     $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);

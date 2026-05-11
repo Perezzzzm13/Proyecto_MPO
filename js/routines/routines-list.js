@@ -42,7 +42,7 @@ function pintarRutinas(rutinas, contenedorRutinas) {
             <article class="card-rutina">
                 <h2>${rutina.nombre}</h2>
                 <p>${rutina.descripcion ? rutina.descripcion : 'Sin descripción'}</p>
-                <a href="routine-detail.html?id=${rutina.id_rutina}" class="btn">Ver rutina</a>
+                <a href="routine-view.html?id=${rutina.id_rutina}" class="btn">Ver rutina</a>
             </article>
         `;
     }
