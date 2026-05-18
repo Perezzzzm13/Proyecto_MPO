@@ -21,3 +21,84 @@ h1 {
     display: grid;
     gap: 1rem;
 }
+
+.acciones-card-sesion {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.oculto {
+    display: none;
+}
+
+.modal-contenido {
+    background-color: white;
+
+    width: 100%;
+    max-width: 900px;
+
+    max-height: 85vh;
+    overflow-y: auto;
+
+    border-radius: 8px;
+
+    padding: 2rem;
+
+    position: relative;
+}
+
+.modal-cerrar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    border: none;
+    background: transparent;
+
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.cabecera-sesion {
+    margin-bottom: 2rem;
+}
+
+.tabla-estadisticas {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-estadisticas th,
+.tabla-estadisticas td {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.tabla-estadisticas th {
+    background-color: #f5f5f5;
+}
+
+.progreso-positivo {
+    color: green;
+    font-weight: bold;
+}
+
+.progreso-negativo {
+    color: red;
+    font-weight: bold;
+}
