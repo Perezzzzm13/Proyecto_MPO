@@ -4,14 +4,16 @@ function iniciarVistaRutina() {
     const parametrosUrl = new URLSearchParams(window.location.search);
     const idRutina = parametrosUrl.get('id');
     const contenedorMensaje = document.getElementById('mensaje-rutina');
-    const btnAniadirRutina = document.getElementById('btn-aniadir-ejercicio');
+    const btnAniadirEjercicio = document.getElementById('btn-aniadir-ejercicio');
+    const btnIniciarRutina = document.getElementById('btn-iniciar-rutina')
 
     if (!idRutina) {
         contenedorMensaje.textContent = 'No se ha indicado ninguna rutina.';
         return;
     }
 
-    btnAniadirRutina.href = `add-exercise.html?id=${idRutina}`;
+    btnAniadirEjercicio.href = `add-exercise.html?id=${idRutina}`;
+    btnIniciarRutina.href = `start-routine.html?id=${idRutina}`;
 
     cargarRutina(idRutina, contenedorMensaje);
 }

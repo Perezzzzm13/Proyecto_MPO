@@ -1,0 +1,23 @@
+main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+}
+
+.acciones-sesiones {
+    margin-bottom: 2rem;
+}
+
+#mensaje-sesiones {
+    margin-bottom: 1.5rem;
+}
+
+#lista-sesiones {
+    display: grid;
+    gap: 1rem;
+}
