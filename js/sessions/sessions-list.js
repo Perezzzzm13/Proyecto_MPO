@@ -70,6 +70,11 @@ function pintarSesiones(sesiones, contenedorSesiones) {
                     </button>
 
                 </div>
+                <p><strong>Fecha:</strong> ${sesion.fecha_hora}</p>
+
+                <a href="session-detail.html?id=${sesion.id_sesion}" class="btn btn-primary">
+                    Ver detalle
+                </a>
             </article>
         `;
     }
