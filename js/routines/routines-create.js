@@ -44,7 +44,7 @@ async function enviarFormularioRutina(evento) {
             return;
         }
 
-        window.location.href = 'routines.html';
+        window.location.href = 'routines.php';
 
     } catch (error) {
         contenedorMensaje.textContent = 'Ha ocurrido un error al crear la rutina.';

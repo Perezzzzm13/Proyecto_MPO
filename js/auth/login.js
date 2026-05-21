@@ -40,7 +40,7 @@ loginForm.addEventListener("submit", async function (event) {
         const data = await response.json();
 
         if (data.success) {
-            showMessage(loginMessage, data.message, "success");
+            showMessage(loginMessage, data.message, "exito");
 
             setTimeout(function () {
                 window.location.href = "../dashboard/dashboard.php";
@@ -60,11 +60,11 @@ function isValidEmail(email) {
 
 function showMessage(element, message, type) {
     element.textContent = message;
-    element.classList.remove("success", "error");
+    element.classList.remove("exito", "error");
     element.classList.add(type);
 }
 
 function clearMessage(element) {
     element.textContent = "";
-    element.classList.remove("success", "error");
+    element.classList.remove("exito", "error");
 }

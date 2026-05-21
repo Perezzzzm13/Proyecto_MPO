@@ -1,9 +1,27 @@
+.card {
+    background-color: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-sm);
+
+    padding: var(--space-lg);
+
+    overflow: hidden;
+}
+
 .auth-card {
     width: 100%;
-    max-width: 430px;
+    max-width: 440px;
+
     background-color: var(--color-surface);
+
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
+
     box-shadow: var(--shadow-md);
+
     padding: var(--space-xl);
 }
 
@@ -15,10 +33,93 @@
 .auth-title {
     font-size: 2rem;
     margin-bottom: var(--space-xs);
-    color: var(--color-secondary);
+    color: var(--color-text);
 }
 
 .auth-subtitle {
     color: var(--color-text-light);
     font-size: 0.95rem;
+}
+
+.card-rutina,
+.card-ejercicio,
+.card-sesion {
+    background-color: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-sm);
+
+    padding: var(--space-lg);
+    overflow: hidden;
+}
+
+.card-rutina {
+    position: relative;
+}
+
+.card-rutina::before,
+.card-sesion::before {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 4px;
+    margin-bottom: var(--space-md);
+    border-radius: 999px;
+    background-color: var(--color-accent);
+}
+
+.card-meta,
+.indicador-metrica {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    min-height: 30px;
+    padding: 5px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background-color: var(--color-surface-muted);
+    color: var(--color-secondary);
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+.lista-detalle {
+    display: grid;
+    gap: var(--space-xs);
+}
+
+.card-rutina h2,
+.card-ejercicio h3,
+.card-sesion h2 {
+    margin-bottom: var(--space-sm);
+}
+
+.card-rutina p,
+.card-ejercicio p,
+.card-sesion p {
+    margin-bottom: 0;
+}
+
+.card-rutina,
+.card-sesion {
+    min-width: 0;
+}
+
+.card-rutina h2,
+.card-sesion h2,
+.card-ejercicio h2,
+.card-ejercicio h3 {
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+    .card,
+    .auth-card,
+    .card-rutina,
+    .card-ejercicio,
+    .card-sesion {
+        padding: var(--space-md);
+    }
 }

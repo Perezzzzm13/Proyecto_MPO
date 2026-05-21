@@ -1,0 +1,95 @@
+.cabecera-panel {
+    padding: 34px var(--space-xl);
+    margin-bottom: var(--space-xl);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background:
+        linear-gradient(135deg, rgba(236, 252, 203, 0.8), rgba(255, 255, 255, 0) 42%),
+        var(--color-surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.cabecera-panel p {
+    font-size: 1rem;
+}
+
+.cabecera-panel h1 {
+    max-width: 760px;
+}
+
+.acciones-panel {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
+}
+
+.card-panel {
+    display: flex;
+    min-height: 245px;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+    border: 1px solid var(--color-border);
+    border-radius: 22px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 248, 249, 0.98)),
+        var(--color-surface-muted);
+    box-shadow: 0 12px 30px rgba(17, 24, 39, 0.06);
+}
+
+.card-panel p {
+    margin-top: var(--space-xs);
+}
+
+.card-panel h2 {
+    margin-top: var(--space-md);
+    font-size: 1.45rem;
+}
+
+.card-panel .btn {
+    width: calc(100% - 8px);
+    margin: 0 auto;
+    min-height: 46px;
+    font-weight: 800;
+}
+
+.card-panel-destacada {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(236, 252, 203, 0.5)),
+        var(--color-surface);
+}
+
+.card-panel-destacada h2,
+.card-panel-destacada p {
+    color: var(--color-text);
+}
+
+.icono-panel {
+    width: 42px;
+    height: 42px;
+    display: inline-grid;
+    place-items: center;
+    margin-bottom: var(--space-md);
+    border-radius: 14px;
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 900;
+}
+
+.card-panel .indicador-metrica {
+    margin-left: var(--space-xs);
+}
+
+@media (max-width: 860px) {
+    .acciones-panel {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .acciones-panel {
+        grid-template-columns: 1fr;
+    }
+}

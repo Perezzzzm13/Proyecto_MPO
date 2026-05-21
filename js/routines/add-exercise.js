@@ -13,14 +13,36 @@ function iniciarPaginaAnadirEjercicio() {
     return;
   }
 
-  btnVolverRutina.href = `routine-view.html?id=${idRutina}`;
+  btnVolverRutina.href = `routine-view.php?id=${idRutina}`;
+
+  const ejerciciosRutina = new Set();
+  cargarEjerciciosRutina(idRutina, ejerciciosRutina, contenedorMensaje);
 
   formulario.addEventListener('submit', function (evento) {
-    buscarEjercicios(evento, idRutina);
+    buscarEjercicios(evento, idRutina, ejerciciosRutina);
   });
 }
 
-async function buscarEjercicios(evento, idRutina) {
+async function cargarEjerciciosRutina(idRutina, ejerciciosRutina, contenedorMensaje) {
+  try {
+    const respuesta = await fetch(`../../backend/routines/get.php?id=${idRutina}`);
+    const data = await respuesta.json();
+
+    if (!data.success) {
+      contenedorMensaje.textContent = data.message;
+      return;
+    }
+
+    for (const ejercicio of data.ejercicios) {
+      ejerciciosRutina.add(normalizarNombreEjercicio(ejercicio.nombre));
+      ejerciciosRutina.add(normalizarNombreEjercicio(traducirEjercicio(ejercicio.nombre)));
+    }
+  } catch (error) {
+    contenedorMensaje.textContent = 'No se pudieron comprobar los ejercicios de la rutina.';
+  }
+}
+
+async function buscarEjercicios(evento, idRutina, ejerciciosRutina) {
   evento.preventDefault();
 
   const inputNombre = document.getElementById('nombre-ejercicio');
@@ -58,109 +80,113 @@ async function buscarEjercicios(evento, idRutina) {
       return;
     }
 
-    pintarEjercicios(data.ejercicios, resultadosEjercicios, idRutina);
+    pintarEjercicios(data.ejercicios, resultadosEjercicios, idRutina, ejerciciosRutina);
   } catch (error) {
-    contenedorMensaje.textContent =
-      'Ha ocurrido un error al buscar ejercicios.';
+    contenedorMensaje.textContent = 'Ha ocurrido un error al buscar ejercicios.';
   }
 }
 
-function pintarEjercicios(ejercicios, contenedor, idRutina) {
+function pintarEjercicios(ejercicios, contenedor, idRutina, ejerciciosRutina) {
   let html = '';
 
   for (const ejercicio of ejercicios) {
-    const musculoTraducido =
-      traduccionesMusculos[ejercicio.muscle] || ejercicio.muscle;
-    const dificultadTraducida =
-      traduccionesDificultad[ejercicio.difficulty] || ejercicio.difficulty;
+    const musculoTraducido = traduccionesMusculos[ejercicio.muscle] || ejercicio.muscle;
+    const dificultadTraducida = traduccionesDificultad[ejercicio.difficulty] || ejercicio.difficulty;
     const tipoTraducido = traduccionesTipo[ejercicio.type] || ejercicio.type;
+    const nombreTraducido = traducirEjercicio(ejercicio.name);
+    const ejercicioYaAnadido = ejerciciosRutina.has(normalizarNombreEjercicio(ejercicio.name)) ||
+      ejerciciosRutina.has(normalizarNombreEjercicio(nombreTraducido));
 
     html += `
-            <article class="card-ejercicio">
-                <h2>${ejercicio.name}</h2>
+      <article class="card-ejercicio">
+        <div>
+          <span class="card-meta">${dificultadTraducida}</span>
+          <h2>${nombreTraducido}</h2>
 
-                <p><strong>Músculo:</strong> ${musculoTraducido}</p>
-                <p><strong>Tipo:</strong> ${tipoTraducido}</p>
-                <p><strong>Dificultad:</strong> ${dificultadTraducida}</p>
+          <div class="lista-detalle">
+            <p><strong>Musculo:</strong> ${musculoTraducido}</p>
+            <p><strong>Tipo:</strong> ${tipoTraducido}</p>
+          </div>
+        </div>
 
-                <button 
-                    type="button" 
-                    class="btn btn-primary btn-anadir-ejercicio"
-                    data-id-rutina="${idRutina}"
-                    data-nombre="${ejercicio.name}"
-                    data-musculo="${ejercicio.muscle}"
-                    data-tipo="${ejercicio.type}"
-                    data-dificultad="${ejercicio.difficulty}"
-                >
-                    Añadir a rutina
-                </button>
-            </article>
-        `;
+        <button
+          type="button"
+          class="btn btn-accent btn-anadir-ejercicio"
+          data-id-rutina="${idRutina}"
+          data-nombre="${nombreTraducido}"
+          data-musculo="${ejercicio.muscle}"
+          data-tipo="${ejercicio.type}"
+          data-dificultad="${ejercicio.difficulty}"
+          ${ejercicioYaAnadido ? 'disabled' : ''}
+        >
+          ${ejercicioYaAnadido ? 'Ya pertenece a la rutina' : 'Anadir a rutina'}
+        </button>
+      </article>
+    `;
   }
 
   contenedor.innerHTML = html;
 
   const botonesAnadir = document.querySelectorAll('.btn-anadir-ejercicio');
 
-  for (const boton of botonesAnadir) {
-    boton.addEventListener('click', anadirEjercicioARutina);
+  for (const btn of botonesAnadir) {
+    btn.addEventListener('click', anadirEjercicioARutina);
   }
 }
 
 async function anadirEjercicioARutina(evento) {
-    const boton = evento.target;
-    const contenedorMensaje = document.getElementById('mensaje-ejercicio');
+  const btn = evento.target;
+  const contenedorMensaje = document.getElementById('mensaje-ejercicio');
 
-    const datosEjercicio = {
-        id_rutina: boton.dataset.idRutina,
-        nombre: boton.dataset.nombre,
-        musculo: boton.dataset.musculo,
-        tipo: boton.dataset.tipo,
-        dificultad: boton.dataset.dificultad
-    };
+  const datosEjercicio = {
+    id_rutina: btn.dataset.idRutina,
+    nombre: btn.dataset.nombre,
+    musculo: btn.dataset.musculo,
+    tipo: btn.dataset.tipo,
+    dificultad: btn.dataset.dificultad
+  };
 
-    contenedorMensaje.textContent = '';
+  contenedorMensaje.textContent = '';
 
-    try {
-        const respuesta = await fetch('../../backend/exercises/add-to-routine.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(datosEjercicio)
-        });
+  try {
+    const respuesta = await fetch('../../backend/exercises/add-to-routine.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datosEjercicio)
+    });
 
-        const data = await respuesta.json();
+    const data = await respuesta.json();
 
-        if (!data.success) {
-            contenedorMensaje.textContent = data.message;
-            return;
-        }
-
-        window.location.href = `routine-view.html?id=${datosEjercicio.id_rutina}`;
-
-    } catch (error) {
-        contenedorMensaje.textContent = 'Ha ocurrido un error al añadir el ejercicio.';
+    if (!data.success) {
+      contenedorMensaje.textContent = data.message;
+      return;
     }
+
+    window.location.href = `routine-view.php?id=${datosEjercicio.id_rutina}`;
+  } catch (error) {
+    contenedorMensaje.textContent = 'Ha ocurrido un error al anadir el ejercicio.';
+  }
 }
 
 const traduccionesMusculos = {
   abdominals: 'Abdominales',
   abductors: 'Abductores',
   adductors: 'Aductores',
-  biceps: 'Bíceps',
+  biceps: 'Biceps',
   calves: 'Gemelos',
   chest: 'Pecho',
   forearms: 'Antebrazos',
-  glutes: 'Glúteos',
+  glutes: 'Gluteos',
   hamstrings: 'Femoral',
   lats: 'Espalda',
   lower_back: 'Lumbar',
   middle_back: 'Espalda media',
   neck: 'Cuello',
-  quadriceps: 'Cuádriceps',
+  quadriceps: 'Cuadriceps',
   traps: 'Trapecio',
-  triceps: 'Tríceps',
+  triceps: 'Triceps',
 };
 
 const traduccionesDificultad = {
@@ -172,9 +198,49 @@ const traduccionesDificultad = {
 const traduccionesTipo = {
   cardio: 'Cardio',
   olympic_weightlifting: 'Halterofilia',
-  plyometrics: 'Pliometría',
+  plyometrics: 'Pliometria',
   powerlifting: 'Powerlifting',
   strength: 'Fuerza',
   stretching: 'Estiramientos',
   strongman: 'Strongman',
 };
+
+const traduccionesEjercicios = {
+  'Rickshaw Carry': 'Paseo con rickshaw',
+  'Single-Leg Press': 'Prensa a una pierna',
+  'Landmine twist': 'Giro con barra landmine',
+  'Dumbbell front raise to lateral raise': 'Elevacion frontal y lateral con mancuernas',
+  'Palms-down wrist curl over bench': 'Curl de muneca prono en banco',
+  'Atlas Stones': 'Levantamiento de piedras Atlas',
+  'Clean from Blocks': 'Cargada desde bloques',
+  'Incline Hammer Curls': 'Curl martillo inclinado',
+  'Side Bridge': 'Plancha lateral',
+  'Smith Machine Calf Raise': 'Elevacion de gemelos en maquina Smith',
+  'Bench Press': 'Press de banca',
+  'Incline Bench Press': 'Press inclinado',
+  'Dumbbell Bench Press': 'Press de banca con mancuernas',
+  'Pushups': 'Flexiones',
+  'Pullups': 'Dominadas',
+  'Chin-Up': 'Dominada supina',
+  'Squat': 'Sentadilla',
+  'Deadlift': 'Peso muerto',
+  'Leg Press': 'Prensa de piernas',
+  'Shoulder Press': 'Press de hombro',
+  'Lateral Raise': 'Elevacion lateral',
+  'Biceps Curl': 'Curl de biceps',
+  'Triceps Pushdown': 'Extension de triceps en polea',
+  'Leg Curl': 'Curl femoral',
+  'Hip Thrust': 'Hip thrust',
+};
+
+function traducirEjercicio(nombre) {
+  return traduccionesEjercicios[nombre] || nombre;
+}
+
+function normalizarNombreEjercicio(nombre) {
+  return nombre
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+}

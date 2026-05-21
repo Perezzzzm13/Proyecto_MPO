@@ -1,27 +1,515 @@
-main {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 0;
-}
-
-h1 {
-    margin-bottom: 1.5rem;
-}
-
-.acciones-rutinas {
+.cabecera-pagina {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    /* Por si acaso se visualiza en móvil*/
-    flex-wrap: wrap; 
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
 }
 
-#mensaje-rutinas {
-    margin-bottom: 1.5rem;
+.contenido-cabecera {
+    min-width: 0;
+}
+
+.cabecera-pagina p {
+    max-width: 720px;
+    color: var(--color-text-light);
+}
+
+.acciones-rutinas,
+.acciones-rutina {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.acciones-rutinas .btn,
+.acciones-rutina .btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.acciones-rutinas .btn:first-child,
+.acciones-rutina .btn:first-child {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: white;
+}
+
+#mensaje-rutinas,
+#mensaje-rutina {
+    margin-bottom: var(--space-lg);
 }
 
 #lista-rutinas {
+    width: min(100%, 1080px);
+    margin: 0 auto;
     display: grid;
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
+}
+
+#lista-ejercicios,
+#resultados-ejercicios {
+    display: grid;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+#resultados-ejercicios {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.card-rutina {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    min-height: 190px;
+    justify-content: space-between;
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: 22px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(248, 248, 249, 0.96)),
+        var(--color-surface-muted);
+    box-shadow: 0 12px 30px rgba(17, 24, 39, 0.06);
+}
+
+.card-rutina::before {
+    content: none;
+}
+
+.card-rutina .card-meta {
+    display: none;
+}
+
+.card-rutina h2 {
+    margin-bottom: var(--space-xs);
+    color: var(--color-text);
+    font-size: 1.35rem;
+}
+
+.card-rutina p {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+}
+
+.card-rutina .btn {
+    width: calc(100% - 8px);
+    min-height: 46px;
+    margin: 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background-color: var(--color-primary);
+    color: white;
+    font-weight: 800;
+}
+
+.acciones-card-rutina {
+    width: calc(100% - 8px);
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.acciones-card-rutina-secundarias {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm);
+}
+
+.acciones-card-rutina-secundarias .btn {
+    width: 100%;
+    min-height: 38px;
+    margin: 0;
+    font-size: 0.9rem;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: none;
+}
+
+.acciones-card-rutina-secundarias .btn-danger {
+    color: var(--color-error);
+    border-color: rgba(220, 38, 38, 0.28);
+}
+
+.panel-detalle-rutina {
+    padding: var(--space-xl);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.cabecera-seccion {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding-bottom: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.cabecera-seccion h2 {
+    margin-bottom: 0;
+}
+
+.panel-detalle-rutina #lista-ejercicios {
+    margin-top: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.panel-detalle-rutina .card-ejercicio {
+    min-height: 128px;
+    padding: var(--space-lg);
+    border-radius: 18px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 248, 249, 0.98)),
+        var(--color-surface-muted);
+}
+
+.numero-ejercicio {
+    width: 38px;
+    height: 38px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 12px;
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 900;
+}
+
+.fila-titulo-ejercicio {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.fila-titulo-ejercicio h3 {
+    margin-bottom: 0;
+    font-size: 1.05rem;
+}
+
+.card-ejercicio {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.card-formulario {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.card-busqueda {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: var(--space-xl);
+    border-radius: 22px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 248, 249, 0.96)),
+        var(--color-surface);
+}
+
+.card-busqueda .acciones-formulario {
+    justify-content: flex-end;
+}
+
+.card-busqueda .acciones-formulario .btn {
+    min-width: 180px;
+}
+
+#form-crear-rutina,
+#form-sesion-rutina,
+#form-buscar-ejercicios {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.campo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+#form-buscar-ejercicios .cuadricula-formulario {
+    align-items: end;
+}
+
+.campo-formulario label {
+    color: var(--color-text);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.acciones-formulario {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.rutina-vacia {
+    padding: var(--space-xl);
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    background-color: rgba(255, 255, 255, 0.7);
+    color: var(--color-text-light);
+}
+
+#resultados-ejercicios {
+    width: min(100%, 1080px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#resultados-ejercicios .card-ejercicio {
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: 22px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(248, 248, 249, 0.98)),
+        var(--color-surface-muted);
+    box-shadow: 0 12px 30px rgba(17, 24, 39, 0.06);
+}
+
+#resultados-ejercicios .card-ejercicio h2 {
+    margin-bottom: var(--space-sm);
+    font-size: 1.25rem;
+}
+
+#resultados-ejercicios .card-ejercicio .btn {
+    width: calc(100% - 8px);
+    margin: var(--space-md) auto 0;
+}
+
+#resultados-ejercicios .card-ejercicio .btn:disabled {
+    cursor: not-allowed;
+    border-color: var(--color-border);
+    background-color: var(--color-surface);
+    color: var(--color-text-light);
+    box-shadow: none;
+    opacity: 0.85;
+}
+
+.panel-formulario-sesion {
+    padding: var(--space-xl);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.panel-registro-serie,
+.panel-series-guardadas {
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 248, 249, 0.98)),
+        var(--color-surface-muted);
+}
+
+.cuadricula-registro-serie {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.4fr) repeat(2, minmax(130px, 0.6fr)) auto;
+    column-gap: var(--space-md);
+    row-gap: var(--space-sm);
+    align-items: end;
+}
+
+.cuadricula-registro-serie .btn {
+    grid-column: 1 / -1;
+    min-height: 44px;
+    align-self: end;
+    justify-self: start;
+    margin-top: 2px;
+    white-space: nowrap;
+}
+
+.cabecera-compacta {
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-md);
+}
+
+.cabecera-compacta h2 {
+    font-size: 1.1rem;
+}
+
+#resumen-series {
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.serie-guardada {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-md);
+    align-items: center;
+    padding: var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background-color: var(--color-surface);
+}
+
+.serie-guardada h3 {
+    margin-bottom: 2px;
+    font-size: 1rem;
+}
+
+.serie-guardada p {
+    color: var(--color-text-light);
+    font-size: 0.92rem;
+}
+
+.serie-guardada .btn {
+    min-width: 110px;
+    min-height: 38px;
+    padding: 8px 14px;
+}
+
+#btn-guardar-sesion:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.panel-formulario-sesion .acciones-formulario {
+    justify-content: flex-end;
+    padding-top: var(--space-lg);
+    margin-top: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+}
+
+.panel-formulario-sesion .acciones-formulario .btn {
+    min-width: 170px;
+}
+
+@media (max-width: 768px) {
+    .cabecera-pagina {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
+    .acciones-formulario {
+        flex-direction: column;
+    }
+
+    .acciones-formulario .btn {
+        width: 100%;
+    }
+
+    .acciones-rutinas,
+    .acciones-rutina {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-sm);
+    }
+
+    .acciones-rutinas .btn,
+    .acciones-rutina .btn {
+        width: 100%;
+        min-width: 0;
+        min-height: 40px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        white-space: normal;
+    }
+
+    .acciones-rutina .btn:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .card-formulario {
+        max-width: 100%;
+    }
+
+    #lista-rutinas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #form-sesion-rutina .card-ejercicio {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+    }
+
+    .cuadricula-registro-serie {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .panel-detalle-rutina #lista-ejercicios {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .cabecera-seccion {
+        flex-direction: column;
+    }
+
+    .cabecera-pagina,
+    .cabecera-rutina,
+    .cabecera-sesion {
+        padding: var(--space-md);
+        margin-bottom: var(--space-lg);
+    }
+
+    .cabecera-pagina h1,
+    .cabecera-rutina h1,
+    .cabecera-sesion h1 {
+        font-size: 1.75rem;
+    }
+
+    .entradilla-pagina {
+        font-size: 0.95rem;
+    }
+
+    .panel-detalle-rutina #lista-ejercicios {
+        grid-template-columns: 1fr;
+    }
+
+    .cuadricula-registro-serie,
+    .serie-guardada {
+        grid-template-columns: 1fr;
+    }
+
+    .serie-guardada .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 560px) {
+    #lista-rutinas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 420px) {
+    .acciones-rutinas,
+    .acciones-rutina {
+        grid-template-columns: 1fr;
+    }
+
+    .acciones-rutinas .btn,
+    .acciones-rutina .btn {
+        min-height: 38px;
+    }
 }

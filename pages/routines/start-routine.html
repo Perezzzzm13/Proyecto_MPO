@@ -5,43 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar rutina - GymTracker</title>
 
-    <link rel="stylesheet" href="../../css/base/reset.css">
-    <link rel="stylesheet" href="../../css/base/variables.css">
-    <link rel="stylesheet" href="../../css/base/global.css">
-    <link rel="stylesheet" href="../../css/components/buttons.css">
-    <link rel="stylesheet" href="../../css/components/forms.css">
-    <link rel="stylesheet" href="../../css/components/cards.css">
-    <link rel="stylesheet" href="../../css/components/messages.css">
-    <link rel="stylesheet" href="../../css/pages/routines.css">
+    <link rel="stylesheet" href="../../css/base/reset.css?v=11">
+    <link rel="stylesheet" href="../../css/base/variables.css?v=11">
+    <link rel="stylesheet" href="../../css/base/global.css?v=15">
+    <link rel="stylesheet" href="../../css/components/header.css?v=11">
+    <link rel="stylesheet" href="../../css/components/buttons.css?v=11">
+    <link rel="stylesheet" href="../../css/components/forms.css?v=11">
+    <link rel="stylesheet" href="../../css/components/cards.css?v=11">
+    <link rel="stylesheet" href="../../css/components/messages.css?v=11">
+    <link rel="stylesheet" href="../../css/pages/routines.css?v=11">
 </head>
 <body>
-    <main>
-        <section class="cabecera-rutina">
-            <h1 id="nombre-rutina">Rutina</h1>
-            <p id="descripcion-rutina"></p>
-        </section>
-
-        <section id="mensaje-rutina"></section>
-
-        <form id="form-sesion-rutina">
-
-            <section id="lista-ejercicios">
-    
-            </section>
-
-            <section class="acciones-formulario">
-                <button type="submit" class="btn btn-primary">
-                    Guardar sesión
-                </button>
-
-                <a href="#" id="btn-volver-rutina" class="btn">
-                    Volver
+    <div class="app-shell">
+        <header class="app-topbar">
+            <div class="app-topbar-inner">
+                <a href="../dashboard/dashboard.php" class="app-brand">
+                    <span class="brand-mark">
+                        <img src="../../assets/img/Logo1.png" alt="GymTracker">
+                    </span>
+                    <span class="brand-text">
+                        <strong>GymTracker</strong>
+                        <span>Rutinas y progreso</span>
+                    </span>
                 </a>
+
+                <nav class="app-nav" aria-label="Navegacion principal">
+                    <a href="../dashboard/dashboard.php">Inicio</a>
+                    <a href="routines.html" class="activo">Rutinas</a>
+                    <a href="../sessions/sessions.html">Sesiones</a>
+                    <a href="../../backend/auth/logout.php" class="nav-danger">Salir</a>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <section class="cabecera-rutina">
+                <span class="eyebrow">Sesión activa</span>
+                <h1 id="nombre-rutina">Rutina</h1>
+                <p id="descripcion-rutina" class="page-kicker"></p>
             </section>
 
-        </form>
-    </main>
+            <section id="mensaje-rutina" class="form-message"></section>
 
-    <script src="../../js/routines/start-routine.js"></script>
+            <form id="form-sesion-rutina" class="session-form-panel">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">Registro</span>
+                        <h2>Series de entrenamiento</h2>
+                    </div>
+                </div>
+
+                <section id="lista-ejercicios"></section>
+
+                <section class="acciones-formulario">
+                    <button type="submit" class="btn btn-accent">Guardar sesión</button>
+                    <a href="#" id="btn-volver-rutina" class="btn btn-secondary">Volver</a>
+                </section>
+            </form>
+        </main>
+    </div>
+
+    <script src="../../js/routines/start-routine.js?v=11"></script>
 </body>
 </html>

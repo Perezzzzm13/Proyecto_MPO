@@ -1,27 +1,91 @@
-.form-group {
+.grupo-formulario {
     display: flex;
     flex-direction: column;
+
     gap: var(--space-xs);
+
     margin-bottom: var(--space-md);
 }
 
-.form-label {
+.etiqueta-formulario {
     font-size: 0.95rem;
-    font-weight: bold;
-    color: var(--color-secondary);
+    font-weight: 600;
+
+    color: var(--color-text);
 }
 
-.form-input {
+.control-formulario,
+.campo-formulario input,
+.campo-formulario select,
+.campo-formulario textarea,
+.card-ejercicio input,
+.card-ejercicio select,
+.card-ejercicio textarea {
     width: 100%;
+
     padding: 12px 14px;
+
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    outline: none;
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    border-radius: var(--radius-md);
+
     background-color: #fff;
+
+    color: var(--color-text);
+
+    transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background-color var(--transition-fast);
 }
 
-.form-input:focus {
+.control-formulario:focus,
+.campo-formulario input:focus,
+.campo-formulario select:focus,
+.campo-formulario textarea:focus,
+.card-ejercicio input:focus,
+.card-ejercicio select:focus,
+.card-ejercicio textarea:focus {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+
+    box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.08);
+}
+
+.control-formulario::placeholder {
+    color: var(--color-text-light);
+}
+
+textarea.control-formulario {
+    min-height: 120px;
+}
+
+.acciones-formulario {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+    flex-wrap: wrap;
+}
+
+.cuadricula-formulario {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-lg);
+}
+
+.cuadricula-formulario .grupo-formulario,
+.cuadricula-formulario .campo-formulario {
+    margin-bottom: 0;
+}
+
+.cuadricula-formulario .span-2 {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 480px) {
+    .acciones-formulario {
+        flex-direction: column;
+    }
+
+    .cuadricula-formulario {
+        grid-template-columns: 1fr;
+    }
 }

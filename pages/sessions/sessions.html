@@ -1,33 +1,88 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mis sesiones - GymTracker</title>
 
-    <link rel="stylesheet" href="../../css/base/reset.css">
-    <link rel="stylesheet" href="../../css/base/variables.css">
-    <link rel="stylesheet" href="../../css/base/global.css">
-    <link rel="stylesheet" href="../../css/components/buttons.css">
-    <link rel="stylesheet" href="../../css/components/cards.css">
-    <link rel="stylesheet" href="../../css/components/messages.css">
-    <link rel="stylesheet" href="../../css/pages/sessions.css">
-</head>
-<body>
-    <main>
-        <h1>Mis sesiones</h1>
+    <link rel="stylesheet" href="../../css/base/reset.css?v=12" />
+    <link rel="stylesheet" href="../../css/base/variables.css?v=12" />
+    <link rel="stylesheet" href="../../css/base/global.css?v=15" />
+    <link rel="stylesheet" href="../../css/components/header.css?v=12" />
+    <link rel="stylesheet" href="../../css/components/buttons.css?v=12" />
+    <link rel="stylesheet" href="../../css/components/cards.css?v=12" />
+    <link rel="stylesheet" href="../../css/components/messages.css?v=12" />
+    <link rel="stylesheet" href="../../css/components/modal.css?v=12" />
+    <link rel="stylesheet" href="../../css/pages/sessions.css?v=12" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-topbar">
+        <div class="app-topbar-inner">
+          <a href="../dashboard/dashboard.php" class="app-brand">
+            <span class="brand-mark">
+              <img src="../../assets/img/Logo1.png" alt="GymTracker" />
+            </span>
+            <span class="brand-text">
+              <strong>GymTracker</strong>
+              <span>Rutinas y progreso</span>
+            </span>
+          </a>
 
-        <section class="acciones-sesiones">
-            <a href="../dashboard/dashboard.php" class="btn">
-                Volver al dashboard
-            </a>
+          <nav class="app-nav" aria-label="Navegacion principal">
+            <a href="../dashboard/dashboard.php">Inicio</a>
+            <a href="../routines/routines.html">Rutinas</a>
+            <a href="sessions.html" class="activo">Sesiones</a>
+            <a href="../../backend/auth/logout.php" class="nav-danger">Salir</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section class="sesiones-header">
+          <div>
+            <span class="eyebrow">Historial</span>
+            <h1>Mis sesiones</h1>
+            <p class="page-kicker">Consulta tus entrenamientos guardados y revisa la evolución de tus marcas.</p>
+          </div>
+
+          <section class="acciones-sesiones">
+            <a href="../dashboard/dashboard.php" class="btn btn-secondary">Volver al dashboard</a>
+          </section>
         </section>
 
-        <section id="mensaje-sesiones"></section>
-
+        <section id="mensaje-sesiones" class="form-message"></section>
         <section id="lista-sesiones"></section>
-    </main>
+      </main>
+    </div>
 
-    <script src="../../js/sessions/sessions-list.js"></script>
-</body>
+    <div id="modal-sesion" class="modal oculto">
+      <div class="modal-contenido">
+        <button type="button" id="cerrar-modal-sesion" class="modal-cerrar">×</button>
+
+        <section class="cabecera-sesion">
+          <h2 id="modal-nombre-rutina">Detalle de sesión</h2>
+          <p id="modal-fecha-sesion"></p>
+        </section>
+
+        <section id="modal-detalle-ejercicios"></section>
+      </div>
+    </div>
+
+    <div id="modal-estadisticas" class="modal oculto">
+      <div class="modal-contenido">
+        <button type="button" id="cerrar-modal-estadisticas" class="modal-cerrar">×</button>
+
+        <section class="cabecera-sesion">
+          <h2>Estadísticas de sesión</h2>
+          <p id="modal-fecha-estadisticas"></p>
+          <p id="modal-fecha-comparada"></p>
+        </section>
+
+        <section id="modal-contenido-estadisticas"></section>
+      </div>
+    </div>
+
+    <script src="../../js/sessions/sessions-list.js?v=13"></script>
+  </body>
 </html>

@@ -1,0 +1,144 @@
+.barra-superior {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--color-border);
+    background-color: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+}
+
+.interior-barra-superior {
+    width: min(92%, 1120px);
+    min-height: 76px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+}
+
+.marca-app {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    min-width: max-content;
+    color: var(--color-text);
+    font-weight: 800;
+}
+
+.marca-app:hover {
+    color: var(--color-text);
+}
+
+.icono-marca {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background-color: #fff;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 10px 22px rgba(24, 24, 27, 0.16);
+    overflow: hidden;
+    flex: 0 0 42px;
+}
+
+.icono-marca img {
+    width: 28px;
+    height: 28px;
+    max-width: 28px;
+    max-height: 28px;
+    object-fit: contain;
+    display: block;
+}
+
+.texto-marca {
+    display: grid;
+    line-height: 1.1;
+}
+
+.texto-marca strong {
+    font-size: 1rem;
+}
+
+.texto-marca span {
+    color: var(--color-text-light);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.navegacion-app {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.navegacion-app a {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    border-radius: 999px;
+    color: var(--color-secondary);
+    font-size: 0.92rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.navegacion-app a:hover {
+    color: var(--color-text);
+    background-color: var(--color-surface-muted);
+}
+
+.navegacion-app a.activo {
+    color: #fff;
+    background-color: var(--color-primary);
+}
+
+.navegacion-app a.navegacion-peligro {
+    color: var(--color-error);
+}
+
+.navegacion-app a.navegacion-peligro:hover {
+    background-color: rgba(220, 38, 38, 0.08);
+}
+
+@media (max-width: 760px) {
+    .interior-barra-superior {
+        min-height: auto;
+        padding: var(--space-md) 0;
+        align-items: stretch;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    .navegacion-app {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border-radius: var(--radius-lg);
+    }
+
+    .navegacion-app a {
+        min-width: 0;
+        padding: 9px 10px;
+    }
+}
+
+@media (max-width: 420px) {
+    .texto-marca span {
+        display: none;
+    }
+
+    .navegacion-app {
+        grid-template-columns: 1fr;
+        border-radius: var(--radius-lg);
+    }
+}

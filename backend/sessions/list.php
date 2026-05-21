@@ -20,7 +20,18 @@ try {
                 s.id_sesion,
                 s.fecha_hora,
                 s.observaciones,
-                r.nombre AS nombre_rutina
+                r.nombre AS nombre_rutina,
+                CASE
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM sesiones s_anterior
+                        WHERE s_anterior.id_usuario = s.id_usuario
+                          AND s_anterior.id_rutina = s.id_rutina
+                          AND s_anterior.fecha_hora < s.fecha_hora
+                    )
+                    THEN 1
+                    ELSE 0
+                END AS tiene_sesion_anterior
             FROM sesiones s
             INNER JOIN rutinas r 
                 ON s.id_rutina = r.id_rutina

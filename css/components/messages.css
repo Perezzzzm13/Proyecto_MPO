@@ -1,14 +1,51 @@
-.form-message {
-    min-height: 24px;
+.mensaje-formulario {
+    min-height: 0;
+
     margin-top: var(--space-sm);
+
     font-size: 0.95rem;
-    text-align: center;
+    text-align: left;
+
+    font-weight: 500;
 }
 
-.form-message.success {
+.mensaje-formulario:not(:empty),
+#mensaje-rutinas:not(:empty),
+#mensaje-rutina:not(:empty),
+#mensaje-sesiones:not(:empty),
+#mensaje-ejercicio:not(:empty) {
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    color: var(--color-text-light);
+}
+
+.mensaje-formulario.exito {
     color: var(--color-success);
 }
 
-.form-message.error {
+.mensaje-formulario.error {
+    color: var(--color-error);
+}
+
+.caja-mensaje {
+    padding: var(--space-md);
+
+    border-radius: var(--radius-sm);
+
+    font-size: 0.95rem;
+    text-align: center;
+
+    margin-bottom: var(--space-md);
+}
+
+.caja-mensaje.exito {
+    background-color: rgba(21, 128, 61, 0.08);
+    color: var(--color-success);
+}
+
+.caja-mensaje.error {
+    background-color: rgba(220, 38, 38, 0.08);
     color: var(--color-error);
 }

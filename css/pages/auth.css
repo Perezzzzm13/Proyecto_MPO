@@ -1,24 +1,102 @@
+.auth-page {
+    width: min(94%, 1040px);
+    display: grid;
+    grid-template-columns: 1fr minmax(360px, 440px);
+    gap: var(--space-xl);
+    align-items: stretch;
+}
+
+.auth-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 560px;
+    padding: var(--space-xl);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background:
+        linear-gradient(135deg, rgba(236, 252, 203, 0.9), rgba(255, 255, 255, 0.18) 45%),
+        var(--color-primary);
+    color: white;
+    overflow: hidden;
+}
+
+.auth-panel h1,
+.auth-panel p {
+    color: white;
+}
+
+.auth-panel h1 {
+    max-width: 520px;
+    font-size: clamp(2.2rem, 4vw, 4rem);
+}
+
+.auth-panel p {
+    max-width: 460px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 1.05rem;
+}
+
+.auth-panel-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-sm);
+}
+
+.auth-panel-metrics span {
+    padding: var(--space-md);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-md);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.86);
+    font-weight: 700;
+}
+
 .auth-form {
     display: flex;
     flex-direction: column;
 }
 
+.auth-form .btn {
+    width: 100%;
+}
+
 .auth-footer {
-    margin-top: var(--space-md);
+    margin-top: var(--space-lg);
+
     text-align: center;
+
     color: var(--color-text-light);
+
     font-size: 0.95rem;
 }
 
+.auth-footer a {
+    font-weight: 600;
+}
+
 .auth-logo {
-    width: 72px;
+    width: 64px;
+
     margin: 0 auto var(--space-md);
 }
 
 @media (max-width: 768px) {
+    .auth-page {
+        grid-template-columns: 1fr;
+        padding: var(--space-lg) 0;
+    }
+
+    .auth-panel {
+        min-height: auto;
+        gap: var(--space-xl);
+    }
+
     .auth-card {
         max-width: 100%;
+
         padding: 24px 20px;
+
         border-radius: 16px;
     }
 
@@ -32,8 +110,13 @@
 }
 
 @media (max-width: 480px) {
+    .auth-panel {
+        display: none;
+    }
+
     .auth-card {
         padding: 20px 16px;
+
         box-shadow: var(--shadow-sm);
     }
 
@@ -46,7 +129,7 @@
         font-size: 0.88rem;
     }
 
-    .form-input {
+    .control-formulario {
         padding: 11px 12px;
     }
 

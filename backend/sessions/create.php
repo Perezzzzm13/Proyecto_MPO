@@ -31,13 +31,14 @@ if ($id_rutina === '' || !is_numeric($id_rutina)) {
 if (empty($ejercicios)) {
     echo json_encode([
         'success' => false,
-        'message' => 'No hay ejercicios para guardar'
+        'message' => 'No hay series para guardar'
     ]);
     exit;
 }
 
 try {
-    // 1. Comprobar que la rutina pertenece al usuario
+    $conexion->beginTransaction();
+
     $sqlRutina = "SELECT id_rutina
                   FROM rutinas
                   WHERE id_rutina = :id_rutina
@@ -51,6 +52,8 @@ try {
     $rutina = $stmtRutina->fetch(PDO::FETCH_ASSOC);
 
     if (!$rutina) {
+        $conexion->rollBack();
+
         echo json_encode([
             'success' => false,
             'message' => 'La rutina no existe o no pertenece al usuario'
@@ -58,7 +61,6 @@ try {
         exit;
     }
 
-    // 2. Crear sesión
     $sqlSesion = "INSERT INTO sesiones (id_usuario, id_rutina)
                   VALUES (:id_usuario, :id_rutina)";
 
@@ -69,13 +71,13 @@ try {
 
     $id_sesion = $conexion->lastInsertId();
 
-    // 3. Insertar ejercicios realizados
-    $sqlSesionEjercicio = "INSERT INTO sesion_ejercicios 
+    $sqlSesionEjercicio = "INSERT INTO sesion_ejercicios
                             (id_sesion, id_ejercicio, numero_serie, repeticiones, peso)
-                           VALUES 
+                           VALUES
                             (:id_sesion, :id_ejercicio, :numero_serie, :repeticiones, :peso)";
 
     $stmtSesionEjercicio = $conexion->prepare($sqlSesionEjercicio);
+    $seriesGuardadas = 0;
 
     foreach ($ejercicios as $ejercicio) {
         $id_ejercicio = $ejercicio['id_ejercicio'] ?? '';
@@ -105,14 +107,30 @@ try {
         $stmtSesionEjercicio->bindParam(':repeticiones', $repeticiones, PDO::PARAM_INT);
         $stmtSesionEjercicio->bindParam(':peso', $peso);
         $stmtSesionEjercicio->execute();
+        $seriesGuardadas++;
     }
+
+    if ($seriesGuardadas === 0) {
+        $conexion->rollBack();
+
+        echo json_encode([
+            'success' => false,
+            'message' => 'No hay series válidas para guardar'
+        ]);
+        exit;
+    }
+
+    $conexion->commit();
 
     echo json_encode([
         'success' => true,
         'message' => 'Sesión guardada correctamente'
     ]);
-
 } catch (PDOException $e) {
+    if ($conexion->inTransaction()) {
+        $conexion->rollBack();
+    }
+
     echo json_encode([
         'success' => false,
         'message' => 'Error al guardar la sesión'

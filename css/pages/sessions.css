@@ -1,104 +1,212 @@
-main {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 0;
-}
-
-h1 {
-    margin-bottom: 1.5rem;
+.cabecera-sesiones {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-md);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background:
+        linear-gradient(135deg, rgba(236, 252, 203, 0.75), rgba(255, 255, 255, 0) 40%),
+        var(--color-surface);
+    box-shadow: var(--shadow-sm);
 }
 
 .acciones-sesiones {
-    margin-bottom: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0;
 }
 
 #mensaje-sesiones {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-lg);
 }
 
 #lista-sesiones {
+    width: min(100%, 1080px);
+    margin: 0 auto;
     display: grid;
-    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
 }
 
-.acciones-card-sesion {
+.card-sesion {
+    container-type: inline-size;
     display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
+    flex-direction: column;
+    gap: var(--space-lg);
+    justify-content: space-between;
+    min-height: 220px;
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: 22px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(248, 248, 249, 0.98)),
+        var(--color-surface-muted);
+    box-shadow: 0 12px 30px rgba(17, 24, 39, 0.06);
 }
 
-.modal {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.45);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 1rem;
-    z-index: 1000;
+.card-sesion::before {
+    content: none;
 }
 
-.oculto {
+.card-sesion .card-meta {
     display: none;
 }
 
-.modal-contenido {
-    background-color: white;
-
-    width: 100%;
-    max-width: 900px;
-
-    max-height: 85vh;
-    overflow-y: auto;
-
-    border-radius: 8px;
-
-    padding: 2rem;
-
-    position: relative;
+.card-sesion h2 {
+    margin-bottom: var(--space-xs);
+    color: var(--color-text);
+    font-size: 1.35rem;
 }
 
-.modal-cerrar {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+.card-sesion p {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+}
 
-    border: none;
-    background: transparent;
+.acciones-card-sesion {
+    width: calc(100% - 8px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-sm);
+}
 
-    font-size: 2rem;
-    cursor: pointer;
+.acciones-card-sesion .btn {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    margin: 0;
+    padding: 9px 12px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    box-shadow: none;
+    white-space: normal;
+}
+
+.acciones-card-sesion .btn:disabled {
+    cursor: not-allowed;
+    border-color: var(--color-border);
+    background-color: var(--color-surface);
+    color: var(--color-text-light);
+    opacity: 0.82;
+}
+
+@container (max-width: 260px) {
+    .acciones-card-sesion {
+        grid-template-columns: 1fr;
+    }
+
+    .acciones-card-sesion .btn {
+        min-height: 40px;
+    }
 }
 
 .cabecera-sesion {
-    margin-bottom: 2rem;
+    padding-right: 48px;
+}
+
+#modal-detalle-ejercicios {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+#modal-contenido-estadisticas {
+    overflow-x: auto;
 }
 
 .tabla-estadisticas {
     width: 100%;
-    border-collapse: collapse;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    min-width: 850px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
 }
 
 .tabla-estadisticas th,
 .tabla-estadisticas td {
     padding: 1rem;
-    border: 1px solid #ddd;
+
+    border-right: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+
     text-align: center;
 }
 
+.tabla-estadisticas th:last-child,
+.tabla-estadisticas td:last-child {
+    border-right: none;
+}
+
+.tabla-estadisticas tbody tr:last-child td {
+    border-bottom: none;
+}
+
 .tabla-estadisticas th {
-    background-color: #f5f5f5;
+    background-color: var(--color-surface-muted);
+
+    color: var(--color-text);
+
+    font-weight: 700;
+}
+
+.tabla-estadisticas td {
+    background-color: var(--color-surface);
 }
 
 .progreso-positivo {
-    color: green;
+    color: var(--color-success);
     font-weight: bold;
 }
 
 .progreso-negativo {
-    color: red;
+    color: var(--color-error);
     font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .cabecera-sesiones {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .acciones-sesiones,
+    .acciones-card-sesion {
+        width: 100%;
+    }
+
+    .acciones-sesiones .btn,
+    .acciones-card-sesion .btn {
+        width: 100%;
+    }
+
+    .tabla-estadisticas {
+        min-width: 700px;
+    }
+
+    #lista-sesiones {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    #lista-sesiones {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 620px) {
+    .acciones-card-sesion {
+        grid-template-columns: 1fr;
+    }
+
+    .acciones-card-sesion .btn {
+        min-height: 40px;
+    }
 }
