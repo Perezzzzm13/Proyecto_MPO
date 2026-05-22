@@ -15,6 +15,23 @@
     color: var(--color-text-light);
 }
 
+.cabecera-detalle-rutina {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    row-gap: var(--space-xl);
+}
+
+.cabecera-detalle-rutina .btn-volver-detalle {
+    justify-self: end;
+}
+
+.cabecera-detalle-rutina .acciones-rutina {
+    grid-column: 1 / -1;
+    align-self: end;
+    justify-self: end;
+}
+
 .acciones-rutinas,
 .acciones-rutina {
     display: flex;
@@ -42,6 +59,18 @@
 .acciones-rutina .btn:first-child {
     border-color: var(--color-primary);
     background-color: var(--color-primary);
+    color: white;
+}
+
+.acciones-rutina #btn-eliminar-rutina {
+    border-color: #DC2626;
+    background-color: #DC2626;
+    color: white;
+}
+
+.acciones-rutina #btn-eliminar-rutina:hover {
+    border-color: #B91C1C;
+    background-color: #B91C1C;
     color: white;
 }
 
@@ -142,7 +171,7 @@
 
 .acciones-card-rutina-secundarias .btn-danger {
     color: var(--color-error);
-    border-color: rgba(220, 38, 38, 0.28);
+    border-color: #DC2626;
 }
 
 .panel-detalle-rutina {

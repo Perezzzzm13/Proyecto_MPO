@@ -27,12 +27,11 @@ async function cargarSesiones(contenedorMensaje, contenedorSesiones) {
         }
 
         if (data.sesiones.length === 0) {
-            contenedorMensaje.textContent = 'Todavía no tienes sesiones guardadas.';
+            contenedorMensaje.textContent = 'Todavia no tienes sesiones guardadas.';
             return;
         }
 
         pintarSesiones(data.sesiones, contenedorSesiones);
-
     } catch (error) {
         contenedorMensaje.textContent = 'Ha ocurrido un error al cargar las sesiones.';
     }
@@ -42,17 +41,17 @@ function pintarSesiones(sesiones, contenedorSesiones) {
     let html = '';
 
     for (const sesion of sesiones) {
+        const puedeVerEstadisticas = Number(sesion.tiene_sesion_anterior) === 1;
+
         html += `
             <article class="card-sesion">
-                <h2>${sesion.nombre_rutina}</h2>
-
-                <p>
-                    <strong>Fecha:</strong> 
-                    ${sesion.fecha_hora}
-                </p>
+                <div>
+                    <span class="card-meta">Sesion guardada</span>
+                    <h2>${sesion.nombre_rutina}</h2>
+                    <p><strong>Fecha:</strong> ${formatearFechaSesion(sesion.fecha_hora)}</p>
+                </div>
 
                 <div class="acciones-card-sesion">
-
                     <button
                         type="button"
                         class="btn btn-primary btn-ver-sesion"
@@ -63,18 +62,13 @@ function pintarSesiones(sesiones, contenedorSesiones) {
 
                     <button
                         type="button"
-                        class="btn btn-primary btn-ver-estadisticas"
+                        class="btn btn-secondary btn-ver-estadisticas"
                         data-id="${sesion.id_sesion}"
+                        ${puedeVerEstadisticas ? '' : 'disabled'}
                     >
-                        Ver estadísticas
+                        ${puedeVerEstadisticas ? 'Ver estadisticas' : 'Sin comparativa'}
                     </button>
-
                 </div>
-                <p><strong>Fecha:</strong> ${sesion.fecha_hora}</p>
-
-                <a href="session-detail.html?id=${sesion.id_sesion}" class="btn btn-primary">
-                    Ver detalle
-                </a>
             </article>
         `;
     }
@@ -83,14 +77,16 @@ function pintarSesiones(sesiones, contenedorSesiones) {
 
     const botonesVerSesion = document.querySelectorAll('.btn-ver-sesion');
 
-    for (const boton of botonesVerSesion) {
-        boton.addEventListener('click', abrirModalSesion);
+    for (const btn of botonesVerSesion) {
+        btn.addEventListener('click', abrirModalSesion);
     }
 
     const botonesVerEstadisticas = document.querySelectorAll('.btn-ver-estadisticas');
 
-    for (const boton of botonesVerEstadisticas) {
-        boton.addEventListener('click', abrirModalEstadisticas);
+    for (const btn of botonesVerEstadisticas) {
+        if (!btn.disabled) {
+            btn.addEventListener('click', abrirModalEstadisticas);
+        }
     }
 }
 
@@ -102,7 +98,7 @@ async function abrirModalSesion(evento) {
     const fechaSesion = document.getElementById('modal-fecha-sesion');
     const detalleEjercicios = document.getElementById('modal-detalle-ejercicios');
 
-    nombreRutina.textContent = 'Cargando sesión...';
+    nombreRutina.textContent = 'Cargando sesion...';
     fechaSesion.textContent = '';
     detalleEjercicios.innerHTML = '';
 
@@ -114,7 +110,7 @@ async function abrirModalSesion(evento) {
 
         if (!data.success) {
             nombreRutina.textContent = 'Error';
-            detalleEjercicios.innerHTML = `<p>${data.message}</p>`;
+            detalleEjercicios.innerHTML = `<p class="rutina-vacia">${data.message}</p>`;
             return;
         }
 
@@ -122,12 +118,9 @@ async function abrirModalSesion(evento) {
         fechaSesion.textContent = data.sesion.fecha_hora;
 
         pintarDetalleSesion(data.ejercicios, detalleEjercicios);
-
     } catch (error) {
         nombreRutina.textContent = 'Error';
-        detalleEjercicios.innerHTML = `
-            <p>Ha ocurrido un error al cargar la sesión.</p>
-        `;
+        detalleEjercicios.innerHTML = '<p class="rutina-vacia">Ha ocurrido un error al cargar la sesion.</p>';
     }
 }
 
@@ -137,22 +130,12 @@ function pintarDetalleSesion(ejercicios, contenedor) {
     for (const ejercicio of ejercicios) {
         html += `
             <article class="card-ejercicio">
-                <h3>${ejercicio.nombre}</h3>
-
-                <p>
-                    <strong>Serie:</strong> 
-                    ${ejercicio.numero_serie}
-                </p>
-
-                <p>
-                    <strong>Repeticiones:</strong> 
-                    ${ejercicio.repeticiones}
-                </p>
-
-                <p>
-                    <strong>Peso:</strong> 
-                    ${ejercicio.peso} kg
-                </p>
+                <h3>${traducirEjercicio(ejercicio.nombre)}</h3>
+                <div class="lista-detalle">
+                    <p><strong>Serie:</strong> ${ejercicio.numero_serie}</p>
+                    <p><strong>Repeticiones:</strong> ${ejercicio.repeticiones}</p>
+                    <p><strong>Peso:</strong> ${ejercicio.peso} kg</p>
+                </div>
             </article>
         `;
     }
@@ -168,7 +151,7 @@ async function abrirModalEstadisticas(evento) {
     const fechaComparada = document.getElementById('modal-fecha-comparada');
     const contenido = document.getElementById('modal-contenido-estadisticas');
 
-    fechaActual.textContent = 'Cargando estadísticas...';
+    fechaActual.textContent = 'Cargando estadisticas...';
     fechaComparada.textContent = '';
     contenido.innerHTML = '';
 
@@ -179,21 +162,18 @@ async function abrirModalEstadisticas(evento) {
         const data = await respuesta.json();
 
         if (!data.success) {
-            fechaActual.textContent = 'No se pueden mostrar estadísticas';
-            contenido.innerHTML = `<p>${data.message}</p>`;
+            fechaActual.textContent = 'No se pueden mostrar estadisticas';
+            contenido.innerHTML = `<p class="rutina-vacia">${data.message}</p>`;
             return;
         }
 
-        fechaActual.textContent = `Sesión actual: ${data.sesion_actual}`;
+        fechaActual.textContent = `Sesion actual: ${data.sesion_actual}`;
         fechaComparada.textContent = `Comparada con: ${data.sesion_anterior}`;
 
         pintarEstadisticas(data.estadisticas, contenido);
-
     } catch (error) {
         fechaActual.textContent = 'Error';
-        contenido.innerHTML = `
-            <p>Ha ocurrido un error al cargar las estadísticas.</p>
-        `;
+        contenido.innerHTML = '<p class="rutina-vacia">Ha ocurrido un error al cargar las estadisticas.</p>';
     }
 }
 
@@ -215,7 +195,6 @@ function pintarEstadisticas(estadisticas, contenedor) {
     `;
 
     for (const estadistica of estadisticas) {
-
         let clasePeso = '';
         let textoPeso = '0';
 
@@ -231,7 +210,6 @@ function pintarEstadisticas(estadisticas, contenedor) {
         let textoReps = estadistica.mensaje_reps;
 
         if (!textoReps) {
-
             if (estadistica.progreso_reps > 0) {
                 claseReps = 'progreso-positivo';
                 textoReps = `+${estadistica.progreso_reps}`;
@@ -246,20 +224,12 @@ function pintarEstadisticas(estadisticas, contenedor) {
         html += `
             <tr>
                 <td>${estadistica.nombre}</td>
-
                 <td>${estadistica.peso_anterior ?? '-'}</td>
                 <td>${estadistica.peso_actual ?? '-'}</td>
-
-                <td class="${clasePeso}">
-                    ${textoPeso}
-                </td>
-
+                <td class="${clasePeso}">${textoPeso}</td>
                 <td>${estadistica.reps_anteriores ?? '-'}</td>
                 <td>${estadistica.reps_actuales ?? '-'}</td>
-
-                <td class="${claseReps}">
-                    ${textoReps}
-                </td>
+                <td class="${claseReps}">${textoReps}</td>
             </tr>
         `;
     }
@@ -280,4 +250,30 @@ function cerrarModalSesion() {
 function cerrarModalEstadisticas() {
     const modal = document.getElementById('modal-estadisticas');
     modal.classList.add('oculto');
+}
+
+const traduccionesEjercicios = {
+    'Rickshaw Carry': 'Paseo con rickshaw',
+    'Single-Leg Press': 'Prensa a una pierna',
+    'Landmine twist': 'Giro con barra landmine',
+    'Dumbbell front raise to lateral raise': 'Elevacion frontal y lateral con mancuernas',
+    'Palms-down wrist curl over bench': 'Curl de muneca prono en banco',
+    'Atlas Stones': 'Levantamiento de piedras Atlas',
+    'Clean from Blocks': 'Cargada desde bloques',
+    'Incline Hammer Curls': 'Curl martillo inclinado',
+    'Side Bridge': 'Plancha lateral',
+    'Smith Machine Calf Raise': 'Elevacion de gemelos en maquina Smith',
+    'Bench Press': 'Press de banca',
+    'Pullups': 'Dominadas',
+    'Triceps Pushdown': 'Extension de triceps en polea',
+    'Leg Curl': 'Curl femoral',
+    'Hip Thrust': 'Hip thrust',
+};
+
+function traducirEjercicio(nombre) {
+    return traduccionesEjercicios[nombre] || nombre;
+}
+
+function formatearFechaSesion(fecha) {
+    return fecha || 'Sin fecha';
 }

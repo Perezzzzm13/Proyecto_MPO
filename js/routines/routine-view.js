@@ -50,7 +50,7 @@ async function cargarRutina(idRutina, contenedorMensaje) {
         contadorEjercicios.textContent = `${data.ejercicios.length} ${data.ejercicios.length === 1 ? 'ejercicio' : 'ejercicios'}`;
 
         if (data.ejercicios.length === 0) {
-            listaEjercicios.innerHTML = '<p class="rutina-vacia">Esta rutina todavia no tiene ejercicios. Anade uno para empezar a entrenar con ella.</p>';
+            listaEjercicios.innerHTML = '<p class="rutina-vacia">Esta rutina todavia no tiene ejercicios. Añade uno para empezar a entrenar con ella.</p>';
             return;
         }
 

@@ -119,7 +119,7 @@ function pintarEjercicios(ejercicios, contenedor, idRutina, ejerciciosRutina) {
           data-dificultad="${ejercicio.difficulty}"
           ${ejercicioYaAnadido ? 'disabled' : ''}
         >
-          ${ejercicioYaAnadido ? 'Ya pertenece a la rutina' : 'Anadir a rutina'}
+          ${ejercicioYaAnadido ? 'Ya pertenece a la rutina' : 'Añadir a rutina'}
         </button>
       </article>
     `;
@@ -166,7 +166,7 @@ async function anadirEjercicioARutina(evento) {
 
     window.location.href = `routine-view.php?id=${datosEjercicio.id_rutina}`;
   } catch (error) {
-    contenedorMensaje.textContent = 'Ha ocurrido un error al anadir el ejercicio.';
+    contenedorMensaje.textContent = 'Ha ocurrido un error al añadir el ejercicio.';
   }
 }
 

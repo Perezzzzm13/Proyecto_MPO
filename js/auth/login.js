@@ -4,29 +4,24 @@ const loginMessage = document.getElementById("loginMessage");
 loginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const email = document.getElementById("loginEmail").value.trim();
+    const identifierInput = document.getElementById("loginEmail") || document.getElementById("loginIdentifier");
+    const identifier = identifierInput.value.trim();
     const password = document.getElementById("loginPassword").value;
     
     
     clearMessage(loginMessage);
 
-    if (email === "" || password === "") {
+    if (identifier === "" || password === "") {
         showMessage(loginMessage, "Debes completar todos los campos.", "error");
         return;
     }
 
-    if (!isValidEmail(email)) {
-        showMessage(loginMessage, "Introduce un correo electrónico válido.", "error");
-        return;
-    }
-
     const loginData = {
-        email: email,
+        identifier: identifier,
         password: password
     };
 
     try {
-        console.log(loginData);
         const response = await fetch("../../backend/auth/login.php", {
             method: "POST",
             headers: {
@@ -53,10 +48,6 @@ loginForm.addEventListener("submit", async function (event) {
         console.error("Error en login:", error);
     }
 });
-
-function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
 
 function showMessage(element, message, type) {
     element.textContent = message;

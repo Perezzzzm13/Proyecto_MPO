@@ -15,55 +15,69 @@
     <link rel="stylesheet" href="../../css/pages/auth.css">
 </head>
 <body>
-    <main class="page-center">
-        <section class="auth-card">
-            <div class="auth-header">
-                <img src="../../assets/img/Logo1.png" alt="GymTracker Logo" class="auth-logo">
-
-                <h1 class="auth-title">Crear cuenta</h1>
-                <p class="auth-subtitle">Regístrate para empezar a usar GymTracker</p>
-            </div>
-
-            <form id="registerForm" class="auth-form">
-                <div class="form-group">
-                    <label for="registerUsername" class="form-label">Nombre de usuario</label>
-                    <input type="text" id="registerUsername" name="nombre_usuario" class="form-input" required>
+    <main class="pagina-centrada">
+        <div class="auth-page">
+            <section class="auth-panel" aria-hidden="true">
+                <div>
+                    <span class="etiqueta">GymTracker</span>
+                    <h1>Empieza a medir tu progreso.</h1>
+                    <p>Crea tu cuenta para guardar rutinas, registrar entrenamientos y comparar tus sesiones.</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="registerName" class="form-label">Nombre</label>
-                    <input type="text" id="registerName" name="nombre" class="form-input" required>
+                <div class="auth-panel-metrics">
+                    <span>Planea</span>
+                    <span>Registra</span>
+                    <span>Mejora</span>
+                </div>
+            </section>
+
+            <section class="auth-card">
+                <div class="auth-header">
+                    <img src="../../assets/img/Logo1.png" alt="GymTracker Logo" class="auth-logo">
+                    <h1 class="auth-title">Crear cuenta</h1>
+                    <p class="auth-subtitle">Regístrate para empezar a usar GymTracker</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="registerSurname" class="form-label">Apellidos</label>
-                    <input type="text" id="registerSurname" name="apellidos" class="form-input">
+                <form id="registerForm" class="auth-form">
+                    <div class="grupo-formulario">
+                        <label for="registerUsername" class="etiqueta-formulario">Nombre de usuario</label>
+                        <input type="text" id="registerUsername" name="nombre_usuario" class="control-formulario" required>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="registerName" class="etiqueta-formulario">Nombre</label>
+                        <input type="text" id="registerName" name="nombre" class="control-formulario" required>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="registerSurname" class="etiqueta-formulario">Apellidos</label>
+                        <input type="text" id="registerSurname" name="apellidos" class="control-formulario">
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="registerEmail" class="etiqueta-formulario">Correo electrónico</label>
+                        <input type="email" id="registerEmail" name="email" class="control-formulario" required>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="registerPassword" class="etiqueta-formulario">Contraseña</label>
+                        <input type="password" id="registerPassword" name="password" class="control-formulario" required>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="registerConfirmPassword" class="etiqueta-formulario">Confirmar contraseña</label>
+                        <input type="password" id="registerConfirmPassword" name="confirmPassword" class="control-formulario" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
+                    <p id="registerMessage" class="mensaje-formulario"></p>
+                </form>
+
+                <div class="auth-footer">
+                    <p>¿Ya tienes cuenta? <a href="./login.html">Inicia sesión</a></p>
                 </div>
-
-                <div class="form-group">
-                    <label for="registerEmail" class="form-label">Correo electrónico</label>
-                    <input type="email" id="registerEmail" name="email" class="form-input" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="registerPassword" class="form-label">Contraseña</label>
-                    <input type="password" id="registerPassword" name="password" class="form-input" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="registerConfirmPassword" class="form-label">Confirmar contraseña</label>
-                    <input type="password" id="registerConfirmPassword" name="confirmPassword" class="form-input" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Registrarse</button>
-
-                <p id="registerMessage" class="form-message"></p>
-            </form>
-
-            <div class="auth-footer">
-                <p>¿Ya tienes cuenta? <a href="./login.html">Inicia sesión</a></p>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 
     <script src="../../js/auth/register.js"></script>

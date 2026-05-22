@@ -15,53 +15,49 @@
     <link rel="stylesheet" href="../../css/pages/auth.css" />
   </head>
   <body>
-    <main class="page-center">
-      <section class="auth-card">
-        <div class="auth-header">
-          <img
-            src="../../assets/img/Logo1.png"
-            alt="GymTracker Logo"
-            class="auth-logo"
-          />
-
-          <h1 class="auth-title">Iniciar sesión</h1>
-          <p class="auth-subtitle">Accede a tu cuenta de GymTracker</p>
-        </div>
-
-        <form id="loginForm" class="auth-form">
-          <div class="form-group">
-            <label for="loginEmail" class="form-label"
-              >Correo electrónico</label
-            >
-            <input
-              type="email"
-              id="loginEmail"
-              name="email"
-              class="form-input"
-              required
-            />
+    <main class="pagina-centrada">
+      <div class="auth-page auth-page-login">
+        <section class="auth-panel" aria-hidden="true">
+          <div>
+            <span class="etiqueta">GymTracker</span>
+            <h1>Entrena con una rutina clara.</h1>
+            <p>Guarda tus sesiones, revisa el progreso y mantén tu entrenamiento organizado en un solo sitio.</p>
           </div>
 
-          <div class="form-group">
-            <label for="loginPassword" class="form-label">Contraseña</label>
-            <input
-              type="password"
-              id="loginPassword"
-              name="password"
-              class="form-input"
-              required
-            />
+          <div class="auth-panel-metrics">
+            <span>Rutinas</span>
+            <span>Sesiones</span>
+            <span>Progreso</span>
+          </div>
+        </section>
+
+        <section class="auth-card">
+          <div class="auth-header">
+            <img src="../../assets/img/Logo1.png" alt="GymTracker Logo" class="auth-logo" />
+            <h1 class="auth-title">Iniciar sesión</h1>
+            <p class="auth-subtitle">Accede a tu cuenta de GymTracker</p>
           </div>
 
-          <button type="submit" class="btn btn-primary">Entrar</button>
+          <form id="loginForm" class="auth-form">
+            <div class="grupo-formulario">
+              <label for="loginEmail" class="etiqueta-formulario">Usuario o correo electrónico</label>
+              <input type="text" id="loginEmail" name="identifier" class="control-formulario" required />
+            </div>
 
-          <p id="loginMessage" class="form-message"></p>
-        </form>
+            <div class="grupo-formulario">
+              <label for="loginPassword" class="etiqueta-formulario">Contraseña</label>
+              <input type="password" id="loginPassword" name="password" class="control-formulario" required />
+            </div>
 
-        <div class="auth-footer">
-          <p>¿No tienes cuenta? <a href="./register.html">Regístrate</a></p>
-        </div>
-      </section>
+            <button type="submit" class="btn btn-primary">Entrar</button>
+            <p id="loginMessage" class="mensaje-formulario"></p>
+          </form>
+
+          <div class="auth-footer">
+            <p>¿No tienes cuenta? <a href="./register.html">Regístrate</a></p>
+          </div>
+        </section>
+      </div>
     </main>
 
     <script src="../../js/auth/login.js"></script>

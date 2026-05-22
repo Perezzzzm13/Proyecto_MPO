@@ -8,21 +8,13 @@ header('Content-Type: application/json; charset=utf-8');
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 
-$email = trim($data['email'] ?? '');
+$identifier = trim($data['identifier'] ?? $data['email'] ?? '');
 $password = trim($data['password'] ?? '');
 
-if ($email === '' || $password === '') {
+if ($identifier === '' || $password === '') {
     echo json_encode([
         'success' => false,
-        'message' => 'Debe introducir el email y la contraseña'
-    ]);
-    exit;
-}
-
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Debe introducir un email válido'
+        'message' => 'Debe introducir el email o usuario y la contraseña'
     ]);
     exit;
 }
@@ -30,11 +22,11 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 try {
     $sql = 'SELECT id_usuario, nombre_usuario, nombre, email, password, rol
             FROM usuarios
-            WHERE email = :email';
+            WHERE email = :identifier OR nombre_usuario = :identifier';
 
     $stmt = $conexion->prepare($sql);
     $stmt->execute([
-        ':email' => $email
+        ':identifier' => $identifier
     ]);
 
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -19,7 +19,7 @@ try {
     $sql = "SELECT id_rutina, nombre, descripcion
             FROM rutinas
             WHERE id_usuario = :id_usuario
-            ORDER BY id_rutina DESC";
+            ORDER BY id_rutina ASC";
 
     $stmt = $conexion->prepare($sql);
     $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
