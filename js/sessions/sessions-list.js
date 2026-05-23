@@ -115,7 +115,7 @@ async function abrirModalSesion(evento) {
         }
 
         nombreRutina.textContent = data.sesion.nombre_rutina;
-        fechaSesion.textContent = data.sesion.fecha_hora;
+        fechaSesion.textContent = formatearFechaSesion(data.sesion.fecha_hora);
 
         pintarDetalleSesion(data.ejercicios, detalleEjercicios);
     } catch (error) {
@@ -167,8 +167,8 @@ async function abrirModalEstadisticas(evento) {
             return;
         }
 
-        fechaActual.textContent = `Sesion actual: ${data.sesion_actual}`;
-        fechaComparada.textContent = `Comparada con: ${data.sesion_anterior}`;
+        fechaActual.textContent = `Sesion actual: ${formatearFechaSesion(data.sesion_actual)}`;
+        fechaComparada.textContent = `Comparada con: ${formatearFechaSesion(data.sesion_anterior)}`;
 
         pintarEstadisticas(data.estadisticas, contenido);
     } catch (error) {
@@ -275,5 +275,22 @@ function traducirEjercicio(nombre) {
 }
 
 function formatearFechaSesion(fecha) {
-    return fecha || 'Sin fecha';
+    if (!fecha) {
+        return 'Sin fecha';
+    }
+
+    const fechaNormalizada = String(fecha).replace(' ', 'T');
+    const fechaSesion = new Date(fechaNormalizada);
+
+    if (Number.isNaN(fechaSesion.getTime())) {
+        return fecha;
+    }
+
+    return fechaSesion.toLocaleString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+    });
 }

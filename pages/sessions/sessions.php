@@ -72,6 +72,6 @@ if (!isset($_SESSION['id_usuario'])) {
       </div>
     </div>
 
-    <script src="../../js/sessions/sessions-list.js"></script>
+    <script src="../../js/sessions/sessions-list.js?v=<?php echo filemtime(__DIR__ . '/../../js/sessions/sessions-list.js'); ?>"></script>
   </body>
 </html>

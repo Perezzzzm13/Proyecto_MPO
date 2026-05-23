@@ -61,12 +61,15 @@ try {
         exit;
     }
 
-    $sqlSesion = "INSERT INTO sesiones (id_usuario, id_rutina)
-                  VALUES (:id_usuario, :id_rutina)";
+    $fecha_hora = (new DateTime('now', new DateTimeZone('Europe/Madrid')))->format('Y-m-d H:i:s');
+
+    $sqlSesion = "INSERT INTO sesiones (id_usuario, id_rutina, fecha_hora)
+                  VALUES (:id_usuario, :id_rutina, :fecha_hora)";
 
     $stmtSesion = $conexion->prepare($sqlSesion);
     $stmtSesion->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
     $stmtSesion->bindParam(':id_rutina', $id_rutina, PDO::PARAM_INT);
+    $stmtSesion->bindParam(':fecha_hora', $fecha_hora, PDO::PARAM_STR);
     $stmtSesion->execute();
 
     $id_sesion = $conexion->lastInsertId();

@@ -110,13 +110,18 @@
     background-color: rgba(220, 38, 38, 0.08);
 }
 
-@media (max-width: 760px) {
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+    .barra-superior {
+        position: relative !important;
+        top: auto !important;
+    }
+
     .interior-barra-superior {
         min-height: auto;
-        padding: var(--space-md) 0;
+        padding: var(--space-sm) 0;
         align-items: stretch;
         flex-direction: column;
-        gap: var(--space-md);
+        gap: var(--space-sm);
     }
 
     .navegacion-app {
@@ -128,7 +133,9 @@
 
     .navegacion-app a {
         min-width: 0;
-        padding: 9px 10px;
+        min-height: 34px;
+        padding: 7px 8px;
+        font-size: 0.86rem;
     }
 }
 
@@ -138,7 +145,7 @@
     }
 
     .navegacion-app {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         border-radius: var(--radius-lg);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-$host = "localhost";
-$dbname = "gymtracker";
-$username = "root";
-$password = "";
+$host = "sql102.infinityfree.com";
+$dbname = "if0_42003014_Gymtracker";
+$username = "if0_42003014";
+$password = "45899818Y";
 
 try {
     $conexion = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);

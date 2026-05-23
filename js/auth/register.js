@@ -51,6 +51,7 @@ registerForm.addEventListener("submit", async function (event) {
         
         const response = await fetch("../../backend/auth/register.php", {
             method: "POST",
+            credentials: "same-origin",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -65,7 +66,7 @@ registerForm.addEventListener("submit", async function (event) {
             registerForm.reset();
 
             setTimeout(function () {
-                window.location.href = "./login.html";
+                window.location.href = "../dashboard/dashboard.php";
             }, 1200);
         } else {
             showMessage(registerMessage, data.message, "error");

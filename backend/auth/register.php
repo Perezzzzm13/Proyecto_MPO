@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once '../config/database.php';
 
 header('Content-type: application/json; charset=utf-8');
@@ -65,6 +67,15 @@ try {
         ':password' => $passwordHash
     ]);
 
+    session_regenerate_id(true);
+
+    $_SESSION['id_usuario'] = $conexion->lastInsertId();
+    $_SESSION['nombre_usuario'] = $nombreUsuario;
+    $_SESSION['nombre'] = $nombre;
+    $_SESSION['email'] = $email;
+    $_SESSION['rol'] = 'usuario';
+
+    session_write_close();
 
     echo json_encode([
         'success' => true,
