@@ -13,6 +13,7 @@ $nombre = trim($data['nombre'] ?? '');
 $apellidos = trim($data['apellidos'] ?? '');
 $email = trim($data['email'] ?? '');
 $password = trim($data['password'] ?? '');
+$fechaRegistro = (new DateTime('now', new DateTimeZone('Europe/Madrid')))->format('Y-m-d H:i:s');
 
 if ($nombreUsuario === '' || $nombre === '' || $email === '' || $password === '') {
     echo json_encode([
@@ -55,8 +56,8 @@ try {
 
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-    $sqlInsert = 'INSERT INTO usuarios (nombre_usuario, nombre, apellidos, email, password)
-              VALUES (:nombre_usuario, :nombre, :apellidos, :email, :password)';
+    $sqlInsert = 'INSERT INTO usuarios (nombre_usuario, nombre, apellidos, email, password, rol, fecha_registro)
+              VALUES (:nombre_usuario, :nombre, :apellidos, :email, :password, :rol, :fecha_registro)';
 
     $stmtInsert = $conexion->prepare($sqlInsert);
     $stmtInsert->execute([
@@ -64,7 +65,9 @@ try {
         ':nombre' => $nombre,
         ':apellidos' => $apellidos,
         ':email' => $email,
-        ':password' => $passwordHash
+        ':password' => $passwordHash,
+        ':rol' => 'usuario',
+        ':fecha_registro' => $fechaRegistro
     ]);
 
     session_regenerate_id(true);
@@ -74,6 +77,7 @@ try {
     $_SESSION['nombre'] = $nombre;
     $_SESSION['email'] = $email;
     $_SESSION['rol'] = 'usuario';
+    $_SESSION['fecha_registro'] = $fechaRegistro;
 
     session_write_close();
 

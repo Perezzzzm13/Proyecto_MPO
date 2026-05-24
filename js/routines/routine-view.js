@@ -100,7 +100,7 @@ function traducirEjercicio(nombre) {
 }
 
 async function eliminarRutina(idRutina, contenedorMensaje) {
-    const confirmar = window.confirm('Vas a eliminar esta rutina y sus datos asociados. Esta accion no se puede deshacer.');
+    const confirmar = window.confirm('Vas a eliminar esta rutina y sus datos asociados. Esta acción no se puede deshacer.');
 
     if (!confirmar) {
         return;

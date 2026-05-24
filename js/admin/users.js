@@ -155,7 +155,7 @@ async function actualizarRol(select) {
 }
 
 async function eliminarUsuario(idUsuario) {
-    const confirmar = window.confirm('Vas a eliminar este usuario y todos sus datos asociados. Esta accion no se puede deshacer.');
+    const confirmar = window.confirm('Vas a eliminar este usuario y todos sus datos asociados. Esta acción no se puede deshacer.');
 
     if (!confirmar) {
         return;
