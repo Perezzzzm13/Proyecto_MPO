@@ -20,6 +20,7 @@ $nombre = trim($data['nombre'] ?? '');
 $descripcion = trim($data['descripcion'] ?? '');
 $id_usuario = $_SESSION['id_usuario'];
 
+// Validaciones basicas antes de guardar para evitar datos vacios o demasiado largos.
 if ($nombre === '') {
     echo json_encode([
         'success' => false,

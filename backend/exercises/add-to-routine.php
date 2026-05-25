@@ -55,6 +55,7 @@ try {
 
     $rutina = $stmtRutina->fetch(PDO::FETCH_ASSOC);
 
+    // Antes de anadir ejercicios se comprueba que la rutina pertenece al usuario logueado.
     if (!$rutina) {
         echo json_encode([
             'success' => false,
@@ -80,6 +81,7 @@ try {
         $id_ejercicio = $ejercicio['id_ejercicio'];
     } else {
 
+        // Si el ejercicio no existe aun, se crea para poder reutilizarlo en otras rutinas.
         $sqlInsertEjercicio = "INSERT INTO ejercicios (nombre, grupo_muscular, descripcion)
                                VALUES (:nombre, :grupo_muscular, :descripcion)";
 
@@ -104,6 +106,7 @@ try {
 
     $relacion = $stmtExisteRelacion->fetch(PDO::FETCH_ASSOC);
 
+    // Se evita repetir el mismo ejercicio dentro de una rutina.
     if ($relacion) {
         echo json_encode([
             'success' => false,
@@ -123,6 +126,7 @@ try {
     $resultadoOrden = $stmtOrden->fetch(PDO::FETCH_ASSOC);
     $orden = $resultadoOrden['siguiente_orden'];
 
+    // El orden se calcula a partir del ultimo ejercicio de la rutina.
     $sqlRelacion = "INSERT INTO rutina_ejercicios (id_rutina, id_ejercicio, orden)
                     VALUES (:id_rutina, :id_ejercicio, :orden)";
 

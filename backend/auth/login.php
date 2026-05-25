@@ -11,6 +11,7 @@ $data = json_decode($input, true);
 $identifier = trim($data['identifier'] ?? $data['email'] ?? '');
 $password = trim($data['password'] ?? '');
 
+// Se permite iniciar sesion con email o nombre de usuario.
 if ($identifier === '' || $password === '') {
     echo json_encode([
         'success' => false,
@@ -31,6 +32,7 @@ try {
 
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // No se crea ninguna sesion hasta comprobar que el usuario existe y la clave coincide.
     if(!$usuario) {
         echo json_encode([
             'success' => false,

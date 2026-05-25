@@ -36,6 +36,7 @@ if (empty($params)) {
 
 $url = 'https://api.api-ninjas.com/v1/exercises';
 
+// Los parametros se montan con http_build_query para respetar espacios y caracteres especiales.
 $url .= '?' . http_build_query($params);
 
 $curl = curl_init();
@@ -55,6 +56,7 @@ $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 curl_close($curl);
 
 if ($error) {
+    // Si la API externa falla, se devuelve una lista local para que la pantalla siga siendo usable.
     echo json_encode([
         'success' => true,
         'ejercicios' => filtrarEjerciciosLocales($name, $muscle)
@@ -63,6 +65,7 @@ if ($error) {
 }
 
 if ($httpCode !== 200) {
+    // El fallback evita depender totalmente del servicio externo.
     echo json_encode([
         'success' => true,
         'ejercicios' => filtrarEjerciciosLocales($name, $muscle)
@@ -174,6 +177,7 @@ function filtrarEjerciciosLocales($name, $muscle) {
     $name = strtolower(trim($name));
     $muscle = strtolower(trim($muscle));
 
+    // Se aplican los mismos filtros que usa la busqueda externa.
     return array_values(array_filter($ejercicios, function($ejercicio) use ($name, $muscle) {
         $coincideNombre = $name === '' || str_contains(strtolower($ejercicio['name']), $name);
         $coincideMusculo = $muscle === '' || strtolower($ejercicio['muscle']) === $muscle;

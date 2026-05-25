@@ -37,6 +37,7 @@ if (empty($ejercicios)) {
 }
 
 try {
+    // La sesion y sus series se guardan juntas; si algo falla, no queda media sesion grabada.
     $conexion->beginTransaction();
 
     $sqlRutina = "SELECT id_rutina
@@ -51,6 +52,7 @@ try {
 
     $rutina = $stmtRutina->fetch(PDO::FETCH_ASSOC);
 
+    // Comprobacion de propiedad de la rutina antes de registrar el entrenamiento.
     if (!$rutina) {
         $conexion->rollBack();
 
@@ -88,6 +90,7 @@ try {
         $repeticiones = $ejercicio['repeticiones'] ?? null;
         $peso = $ejercicio['peso'] ?? null;
 
+        // Si una serie llega incompleta, se ignora y se sigue con el resto.
         if ($id_ejercicio === '' || !is_numeric($id_ejercicio)) {
             continue;
         }
@@ -114,6 +117,7 @@ try {
     }
 
     if ($seriesGuardadas === 0) {
+        // Sin series validas no tiene sentido conservar la cabecera de la sesion.
         $conexion->rollBack();
 
         echo json_encode([

@@ -77,6 +77,7 @@ function pintarUsuarios(usuarios, contenedorUsuarios) {
 
     contenedorUsuarios.innerHTML = html;
 
+    // Los eventos se asignan despues de pintar el HTML dinamico.
     for (const select of document.querySelectorAll('.select-rol')) {
         select.addEventListener('change', function() {
             actualizarRol(select);
@@ -123,6 +124,7 @@ async function actualizarRol(select) {
     const rolAnterior = select.dataset.rolAnterior || select.value;
     const idUsuario = select.dataset.id;
 
+    // Se bloquea el selector mientras se confirma el cambio con el servidor.
     select.disabled = true;
 
     try {
@@ -186,6 +188,7 @@ async function eliminarUsuario(idUsuario) {
 }
 
 function escaparHtml(valor) {
+    // Evita que datos guardados por usuarios se interpreten como HTML en el panel.
     return String(valor ?? '')
         .replaceAll('&', '&amp;')
         .replaceAll('<', '&lt;')

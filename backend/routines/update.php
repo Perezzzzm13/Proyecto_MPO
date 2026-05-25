@@ -21,6 +21,7 @@ $nombre = trim($data['nombre'] ?? '');
 $descripcion = trim($data['descripcion'] ?? '');
 $id_usuario = $_SESSION['id_usuario'];
 
+// El id se comprueba antes de actualizar para no ejecutar consultas sobre rutinas no validas.
 if ($id_rutina === '' || !is_numeric($id_rutina)) {
     echo json_encode([
         'success' => false,
@@ -52,6 +53,7 @@ try {
             WHERE id_rutina = :id_rutina
               AND id_usuario = :id_usuario";
 
+    // Se filtra por id_usuario para que cada usuario solo pueda modificar sus propias rutinas.
     $stmt = $conexion->prepare($sql);
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
     $stmt->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);

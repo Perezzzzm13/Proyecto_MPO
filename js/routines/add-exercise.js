@@ -16,6 +16,7 @@ function iniciarPaginaAnadirEjercicio() {
   btnVolverRutina.href = `routine-view.php?id=${idRutina}`;
 
   const ejerciciosRutina = new Set();
+  // Se guarda una copia de los ejercicios actuales para desactivar duplicados en los resultados.
   cargarEjerciciosRutina(idRutina, ejerciciosRutina, contenedorMensaje);
 
   formulario.addEventListener('submit', function (evento) {
@@ -63,6 +64,7 @@ async function buscarEjercicios(evento, idRutina, ejerciciosRutina) {
       url += `name=${encodeURIComponent(nombre)}&`;
     }
 
+    // encodeURIComponent evita que espacios o caracteres especiales rompan la URL.
     if (musculo) {
       url += `muscle=${encodeURIComponent(musculo)}`;
     }
@@ -94,6 +96,7 @@ function pintarEjercicios(ejercicios, contenedor, idRutina, ejerciciosRutina) {
     const dificultadTraducida = traduccionesDificultad[ejercicio.difficulty] || ejercicio.difficulty;
     const tipoTraducido = traduccionesTipo[ejercicio.type] || ejercicio.type;
     const nombreTraducido = traducirEjercicio(ejercicio.name);
+    // Se compara el nombre original y el traducido para detectar duplicados.
     const ejercicioYaAnadido = ejerciciosRutina.has(normalizarNombreEjercicio(ejercicio.name)) ||
       ejerciciosRutina.has(normalizarNombreEjercicio(nombreTraducido));
 
@@ -238,6 +241,7 @@ function traducirEjercicio(nombre) {
 }
 
 function normalizarNombreEjercicio(nombre) {
+  // Quita mayusculas y tildes para comparar nombres de forma mas fiable.
   return nombre
     .toLowerCase()
     .normalize('NFD')

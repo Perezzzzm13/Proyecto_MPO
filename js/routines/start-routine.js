@@ -4,6 +4,7 @@ let ejerciciosRutina = [];
 let seriesSesion = [];
 
 function iniciarSesionRutina() {
+    // El id de la rutina llega por URL porque esta pantalla depende de una rutina concreta.
     const parametrosUrl = new URLSearchParams(window.location.search);
     const idRutina = parametrosUrl.get('id');
 
@@ -37,6 +38,7 @@ async function cargarRutinaParaSesion(idRutina, contenedorMensaje) {
     nombreRutina.textContent = '';
     descripcionRutina.textContent = '';
     selectEjercicio.innerHTML = '<option value="">Selecciona ejercicio</option>';
+    // Al cargar otra rutina se limpia cualquier serie temporal anterior.
     seriesSesion = [];
     pintarResumenSeries();
 
@@ -111,6 +113,7 @@ function guardarSerieTemporal() {
         return;
     }
 
+    // El numero de serie se calcula por ejercicio, no por el total de la sesion.
     const numeroSerie = seriesSesion.filter(function(serie) {
         return String(serie.id_ejercicio) === String(idEjercicio);
     }).length + 1;
@@ -183,6 +186,7 @@ function eliminarSerieTemporal(indexSerie) {
 function recalcularNumerosSerie() {
     const contadorPorEjercicio = {};
 
+    // Tras eliminar una serie, se renumeran las restantes para no dejar saltos.
     for (const serie of seriesSesion) {
         contadorPorEjercicio[serie.id_ejercicio] = (contadorPorEjercicio[serie.id_ejercicio] || 0) + 1;
         serie.numero_serie = contadorPorEjercicio[serie.id_ejercicio];
@@ -235,6 +239,7 @@ async function guardarSesion(event, idRutina) {
         })
     };
 
+    // Solo se envia al backend la informacion necesaria para guardar la sesion.
     try {
         const respuesta = await fetch('../../backend/sessions/create.php', {
             method: 'POST',
